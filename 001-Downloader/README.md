@@ -1,5 +1,8 @@
 # 资源下载器
-本项目主要通过网络上开源的项目聚合成了一个跨平台的下载工具，可批量下载抖音、快手和YouTube视音频资源。如图：
+本项目主要通过网络上开源的项目聚合成了一个跨平台的下载工具，可批量下载抖音、快手和YouTube视音频资源。下载地址：
+MacOS：[Downloader1.0.1-mac](https://github.com/xhunmon/PythonIsTools/releases/download/untagged-924487edaf1bb05a3d33/Downloader1.0.1-mac)
+
+效果如图：
 
 ![资源下载](./doc/example.jpg)
 
