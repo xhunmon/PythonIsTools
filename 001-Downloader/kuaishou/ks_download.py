@@ -158,8 +158,8 @@ class KuaiShou(Downloader):
             'Sec-Fetch-Mode': 'cors',
             'Sec-Fetch-Dest': 'empty',
             'Referer': url.encode(encoding='utf-8'),
-            'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6',
-            'Cookie': Cookie,
+            'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6'
+            # 'Cookie': Cookie,
         }
         requests.packages.urllib3.disable_warnings()
         r = requests.post('https://www.kuaishou.com/graphql', data=json.dumps(data), headers=headers)
