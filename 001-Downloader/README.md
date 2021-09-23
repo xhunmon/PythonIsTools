@@ -4,7 +4,7 @@ MacOS：[Downloader1.0.1-mac](https://github.com/xhunmon/PythonIsTools/releases/
 
 效果如图：
 
-![资源下载](./doc/example.jpg)
+![下载器截图](./doc/example.jpg)
 
 #主要知识点
 
