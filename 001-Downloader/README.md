@@ -28,4 +28,4 @@ pyinstaller -F -i res/logo.ico main.spec  -w
 pyinstaller打包工具的版本与python版本、python所需第三方库以及操作系统会存在各种问题，所以需要看日志查找问题。例如：打包后运用，发现导入pyppeteer报错，通过降低版本后能正常使用：pip install pyppeteer==0.2.2
 
 ## 项目
-项目代码结构非常简单，看ui.py和downloader.py就能知道大概。支持多线程任务下载。如果快手批量下载报错，很可能是cookie问题，替换掉自己的即可。如果自己添加其他网站的资源下载，通过增加实现downloader.py和并且在ui.py中start_download增加入口判读即可无缝接入。
+项目代码结构非常简单，看ui.py和downloader.py就能知道大概。支持多线程任务下载。如果自己添加其他网站的资源下载，通过增加实现downloader.py和并且在ui.py中start_download增加入口判读即可无缝接入。
