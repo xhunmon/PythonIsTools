@@ -5,7 +5,7 @@
 
 - [001-Downloader：抖音、快手、YouTube音视频下载器](./001-Downloader/README.md) ——已完成
 
-- 002-v2ray代理池：爬取vmess、ss、trojan协议节点，进行校验，自更新。 ——进行中
+- [002-v2ray代理池：爬取vmess、ss、trojan协议节点，进行校验，自更新](./002-V2rayPool/README.md) ——已完成
 
 - 003-电商关键词listing爬取策略 ——进行中
 
