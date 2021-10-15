@@ -50,6 +50,11 @@ class DouYin(Downloader):
             self.user = url
         else:
             self.single = url
+            # https://www.douyin.com/video/6979067378848042276?extra_params=%7B%22search_id%22%3A%22202109260757420101511740995D070AF5%22%2C%22search_result_id%22%3A%226979067378848042276%22%2C%22search_type%22%3A%22video%22%2C%22search_keyword%22%3A%22%E6%A8%A1%E7%89%B9%22%7D&previous_page=search_result
+            # try:
+            #     self.single = re.findall(r'(http.+?)\?extra_params', url)[0]
+            # except:
+            #     self.single = url
 
         if len(self.single) > 0:
             self.count = 1
@@ -75,13 +80,22 @@ class DouYin(Downloader):
         # 作者id
         nickname = []
         max_cursor = 0
-
-        if ('C_12' in jsonObj):
-            detail = jsonObj['C_12']['aweme']['detail']
-        elif ('C_14' in jsonObj):
-            detail = jsonObj['C_14']['aweme']['detail']
-        else:
-            detail = jsonObj['C_0']['aweme']['detail']
+        k: str = ''
+        for key in jsonObj:
+            if key.startswith('C_'):
+                awemeObj = jsonObj[key]
+                if 'aweme' in awemeObj:
+                    try:
+                        detail = awemeObj['detail']
+                        break
+                    except:
+                        pass
+        # if ('C_12' in jsonObj):
+        #     detail = jsonObj['C_12']['aweme']['detail']
+        # elif ('C_14' in jsonObj):
+        #     detail = jsonObj['C_14']['aweme']['detail']
+        # else:
+        #     detail = jsonObj['C_0']['aweme']['detail']
         author_list.append(str(detail['desc']))
         video_list.append(str("https:" + detail['video']['playAddr'][0]['src']))
         aweme_id.append(str(detail['awemeId']))

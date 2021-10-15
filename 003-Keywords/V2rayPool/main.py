@@ -12,13 +12,12 @@ from db.db_main import *
 EXIT_NUM = 100
 
 if __name__ == '__main__':
-    Config.set_v2ray_core_path('/Users/Qincji/Desktop/develop/soft/intalled/v2ray-macos-64')
-    url = 'vmess://ewogICJ2IjogIjIiLAogICJwcyI6ICIiLAogICJhZGQiOiAiNDUuNzkuMjEwLjE0MSIsCiAgInBvcnQiOiA1MDcyNCwKICAiaWQiOiAiNDMzNWYzZDUtODI0Mi00NTJlLWY2YjQtNmI5YTVmZDlmMzg1IiwKICAiYWlkIjogMCwKICAibmV0IjogInRjcCIsCiAgInR5cGUiOiAibm9uZSIsCiAgImhvc3QiOiAiIiwKICAicGF0aCI6ICIiLAogICJ0bHMiOiAibm9uZSIKfQ=='
+    Config.set_v2ray_core_path('xxx/Downloads/v2ray-macos-64')
+    url = 'ss://YWVzLTI1Ni1nY206WXlDQmVEZFlYNGNhZEhwQ2trbWRKTHE4@37.120.144.211:43893#github.com/freefq%20-%20%E7%BD%97%E9%A9%AC%E5%B0%BC%E4%BA%9A%20%2041'
     if check_url_single(url):
         urls = load_urls_by_net(proxy_url=url)
         check_and_save(urls, append=False)
     # print(urls)
     # urls = load_unchecked_urls_by_local()
-    # check_and_save(urls, append=False)
     # urls = load_enable_urls_by_local()
     # load_urls_and_save_auto()

@@ -1,0 +1,11 @@
+{
+  "network": "tcp",
+  "security": "none",
+  "tlsSettings": {},
+  "tcpSettings": {},
+  "kcpSettings": {},
+  "wsSettings": {},
+  "httpSettings": {},
+  "quicSettings": {},
+  "grpcSettings": {}
+}

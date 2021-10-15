@@ -1,0 +1,10 @@
+{
+  "auth": "password",
+  "accounts": [
+    {
+      "user": "hello",
+      "pass": "socks"
+    }
+  ],
+  "udp": true
+}

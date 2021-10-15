@@ -1,0 +1,12 @@
+{
+  "network": "h2",
+  "security": "tls",
+  "tlsSettings": {},
+  "tcpSettings": {},
+  "httpSettings": { 
+    "path": "/ray/"
+  },
+  "kcpSettings": {},
+  "wsSettings": {},
+  "quicSettings": {}
+}
