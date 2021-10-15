@@ -9,7 +9,7 @@
 
 - [002-v2ray代理池：爬取vmess、ss、trojan协议节点，进行校验，自更新](./002-V2rayPool) ——已完成
 
-- 003-电商关键词listing爬取策略 ——进行中
+- [003-Keywords](./003-Keywords) ——已完成
 
 
 - [004-EmailNotify：监听虚拟币变化，使用邮箱通知](./004-EmailNotify) ——已完成
