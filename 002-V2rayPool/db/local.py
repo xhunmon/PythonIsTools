@@ -11,22 +11,24 @@ import shutil
 from concurrent.futures import ThreadPoolExecutor
 from threading import Lock
 
+from core.conf import Config
+
 
 class DbLocal(object):
     """
     加载本地文件的url，并进行检测是否合法
     """
 
-    def __init__(self, save_path=None, get_path=None):
+    def __init__(self):
+        path = Config.get_v2ray_node_path()
         parent_dir = os.path.dirname(os.path.abspath(__file__))
-        if not save_path:
-            self.__save_path = os.path.join(parent_dir, '_db-uncheck.txt')
-        else:
-            self.__save_path = save_path
-        if not get_path:
-            self.__get_path = os.path.join(parent_dir, '_db-uncheck.txt')
-        else:
-            self.get_path = get_path
+        if path:
+            parent_dir = path
+        if not os.path.exists(parent_dir):
+            os.mkdir(parent_dir)
+
+        self.__save_path = os.path.join(parent_dir, '_db-uncheck.txt')
+        self.__get_path = os.path.join(parent_dir, '_db-uncheck.txt')
         if not os.path.isfile(self.__save_path):
             open(self.__save_path, mode='w', encoding="utf-8").write('')
         if not os.path.isfile(self.__get_path):
@@ -149,19 +151,21 @@ class DbEnable(object):
     """
     _instance_lock = Lock()
 
-    def __init__(self, path=None):
+    def __init__(self):
         self.__urls = []
         self.__index = 0
         self.__END = '.back'
         self.__mutex = Lock()
         self.__default_url = 'ss://YWVzLTI1Ni1nY206WWd1c0gyTVdBOFBXYzNwMlZEc1I3QVZ2@81.19.223.189:31764#github.com/freefq%20-%20%E8%8B%B1%E5%9B%BD%20%208'
         self.__config_path = ''
+        path = Config.get_v2ray_node_path()
         # 获取本地文件实例？
         parent_dir = os.path.dirname(os.path.abspath(__file__))
-        if not path:
-            self.__path = os.path.join(parent_dir, '_db-checked.txt')
-        else:
-            self.__path = path
+        if path:
+            parent_dir = path
+        if not os.path.exists(parent_dir):
+            os.mkdir(parent_dir)
+        self.__path = os.path.join(parent_dir, '_db-checked.txt')
         if not os.path.isfile(self.__path):
             open(self.__path, mode='w', encoding="utf-8").write('')
 

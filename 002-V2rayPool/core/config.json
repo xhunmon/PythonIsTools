@@ -24,12 +24,12 @@
    "settings": {
     "vnext": [
      {
-      "address": "a0b88095bc56fa123.awsglobalaccelerator.com",
-      "port": 80,
+      "address": "api.ssfree.ru",
+      "port": 443,
       "users": [
        {
-        "id": "d6bb0999-fa0a-3f92-b27a-3817dd8bfca3",
-        "alterId": 2,
+        "id": "8a94a54e-6e40-11ec-bb14-000017022008",
+        "alterId": 64,
         "security": "aes-128-gcm"
        }
       ]

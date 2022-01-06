@@ -7,6 +7,7 @@ import os
 
 class Config:
     __v2ray_core_path = None
+    __v2ray_node_path = None
 
     def __init__(self):
         self.config = configparser.ConfigParser()
@@ -35,3 +36,13 @@ class Config:
     def get_v2ray_core_path():
         """获取当前v2ray_core程序的目录"""
         return Config.__v2ray_core_path
+
+    @staticmethod
+    def set_v2ray_node_path(dir: str):
+        """设置当前v2ray保存节点的目录"""
+        Config.__v2ray_node_path = dir
+
+    @staticmethod
+    def get_v2ray_node_path():
+        """获取当前v2ray保存节点的目录"""
+        return Config.__v2ray_node_path

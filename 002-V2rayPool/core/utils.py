@@ -189,38 +189,21 @@ def readchar(prompt=""):
     return ch.strip()
 
 
+def kill_all_v2ray():
+    pids = os.popen("ps aux |grep v2ray |awk '{print $2}'").read().split('\n')
+    for pid in pids:
+        try:
+            import subprocess
+            # subprocess.check_output("kill %d" % int(pid))
+            a = os.popen("kill %d" % int(pid)).read()
+        except Exception as e:
+            pass
+
+
 # netstat -nlp | grep :1080 | awk '{print $7}' | awk -F\" / \" '{ print $1 }'
 def kill_process_by_port(port):
     try:
-        # kill -9 `ps -ef |grep act1 |awk 'NR==1{print $3}'`
-        # pids = os.popen("pgrep -f v2ray|xargs -n1 kill -9").read().split('\n')
         pids = os.popen("pgrep -f v2ray|xargs kill -9").read().split('\n')
         print(pids)
-        # a = os.kill(int(pid), 0)
-        # a = os.popen("kill %d" % int(pid)).read()
-        # print('已杀死port为%d,pid为%s的进程,　返回值是:%s' % (port, pid, a))
     except:
         pass
-    pid_all = []
-    # ps aux | grep 'v2ray' |  awk '{print $2}
-    # pids = os.popen("lsof -i:%d |  awk '{print $2}'" % (port)).read().split('\n')
-
-
-    # pids = os.popen("ps aux |grep v2ray |awk '{print $2}'").read().split('\n')
-    # # pids = os.popen("ps aux | grep 'v2ray' |  awk '{print $2}'").read().split('\n')
-    # print(pids)
-    # for pid in pids:
-    #     temp = pid.strip()
-    #     if len(temp) > 1 and temp != 'PID' and temp != '0' and temp not in pid_all:
-    #         pid_all.append(temp)
-    # for pid in pid_all:
-    #     # a = os.kill(int(pid), 0)
-    #     # a = os.popen("kill -9 %d" % int(pid)).read()
-    #     try:
-    #         process = subprocess.Popen("kill %d" % int(pid), shell=True)
-    #         os.killpg(os.getpgid(process.pid), signal.SIGTERM)
-    #         # a = os.kill(int(pid), 0)
-    #         # a = os.popen("kill %d" % int(pid)).read()
-    #         print('已杀死port为%d,pid为%s的进程,　返回值是:%s' % (port, pid, a))
-    #     except:
-    #         pass
