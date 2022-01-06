@@ -1,7 +1,6 @@
 学习python最好的方式就是通过不断的实践！
 项目地址：[https://github.com/xhunmon/PythonIsTools](https://github.com/xhunmon/PythonIsTools) 
 
-加我[qincji]wx好友(请注明来意)进群一起学习一起进步吧！
 
 # 实践项目
 
