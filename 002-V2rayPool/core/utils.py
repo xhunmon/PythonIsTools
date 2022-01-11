@@ -198,6 +198,7 @@ def kill_all_v2ray():
             a = os.popen("kill %d" % int(pid)).read()
         except Exception as e:
             pass
+    sys_proxy_off()
 
 
 # netstat -nlp | grep :1080 | awk '{print $7}' | awk -F\" / \" '{ print $1 }'
@@ -207,3 +208,24 @@ def kill_process_by_port(port):
         print(pids)
     except:
         pass
+
+
+def sys_proxy_on(proxy, port):
+    ''''控制macOS系统代理'''
+    os.system('networksetup -setwebproxy wi-fi %s %d' % (proxy, port))  # http
+    os.system('networksetup -setsecurewebproxy wi-fi %s %d' % (proxy, port))  # https
+    os.system('networksetup -setsocksfirewallproxy wi-fi %s %d' % (proxy, port))  # socks
+
+
+def sys_v2ray_on():
+    # proxy_on("127.0.0.1", 1080)
+    '''端口要对应起v2ray开启的，具体要看写入config.json文件中inbounds节点部分'''
+    os.system('networksetup -setwebproxy wi-fi 127.0.0.1 1087')
+    os.system('networksetup -setsecurewebproxy wi-fi 127.0.0.1 1087')
+    os.system('networksetup -setsocksfirewallproxy wi-fi 127.0.0.1 1080')
+
+
+def sys_proxy_off():
+    os.system('networksetup -setwebproxystate wi-fi off')
+    os.system('networksetup -setsecurewebproxystate wi-fi off')
+    os.system('networksetup -setsocksfirewallproxystate wi-fi off')

@@ -28,25 +28,27 @@
 1. 下载[v2ray-core-v4.31.0](https://github.com/v2fly/v2ray-core/releases/download/v4.31.0/v2ray-macos-64.zip)
 2. 配置解压目录的路径：
 ```python
-Config.set_v2ray_core_path('xxx/Downloads/v2ray-macos-64')
+Config.set_v2ray_core_path('xxx/v2ray-macos-64')
 ```
 3. 查看是否能正常启动：
 ```python
-client.Creator().v2ray_start('ss://YWVzLTI1Ni1nY206WXlDQmVEZFlYNGNhZEhwQ2trbWRKTHE4@37.120.144.211:43893#github.com/freefq%20-%20%E7%BD%97%E9%A9%AC%E5%B0%BC%E4%BA%9A%20%2041')
+client.Creator().v2ray_start('xxx')
+#如果需要开启全局代理
+client.Creator().v2ray_start('xxx',True)
 ```
 
-## 2022-1-4检测可用测试节点(注意去掉后面","开始的内容)：
+## 2022-1-11检测可用测试节点(注意去掉后面","开始的内容)：
 ```shell
-vmess://ew0KICAidiI6ICIyIiwNCiAgInBzIjogIkBTU1JTVUItVjMyLeS7mOi0ueaOqOiNkDpzdW8ueXQvc3Nyc3ViIiwNCiAgImFkZCI6ICIxMzcuMTc1LjMwLjI1MSIsDQogICJwb3J0IjogIjExMSIsDQogICJpZCI6ICI3N2NkNzc1Yy0xYzBhLTExZWMtYTFhOC0wMDE2M2MxMzkzYTgiLA0KICAiYWlkIjogIjAiLA0KICAic2N5IjogImF1dG8iLA0KICAibmV0IjogInRjcCIsDQogICJ0eXBlIjogIm5vbmUiLA0KICAiaG9zdCI6ICIxMzcuMTc1LjMwLjI1MSIsDQogICJwYXRoIjogIiIsDQogICJ0bHMiOiAiIiwNCiAgInNuaSI6ICIiDQp9,137.175.30.251,美国加利福尼亚圣何塞
-vmess://ew0KICAidiI6ICIyIiwNCiAgInBzIjogImh0dHBzOi8vZ2l0aHViLmNvbS9BbHZpbjk5OTkvbmV3LXBhYy93aWtpIOS/hOe9l+aWr2czIiwNCiAgImFkZCI6ICIxOTQuMTU2LjEyMC41MiIsDQogICJwb3J0IjogIjQxMDAyIiwNCiAgImlkIjogImViYjkzZTg0LTViYjctMTFlYy04YmM2LTZhNWM2ZTA1NGU0ZCIsDQogICJhaWQiOiAiMCIsDQogICJuZXQiOiAidGNwIiwNCiAgInR5cGUiOiAibm9uZSIsDQogICJob3N0IjogIiIsDQogICJwYXRoIjogIiIsDQogICJ0bHMiOiAiIiwNCiAgInNuaSI6ICIiDQp9,194.156.120.52,俄罗斯新西伯利亚
-vmess://eyJ2IjoiMiIsInBzIjoi57+75aKZ5YWaZmFucWlhbmdkYW5nLmNvbV9DTl8xMiIsImFkZCI6InNoY24yLTAxLmlwbGMxODguY29tIiwicG9ydCI6IjEwMDE2IiwiaWQiOiI4OTdhMTlmMC04ZGYxLTRiYTEtYTRhOC0wNTMzMWE4MmMyYWIiLCJhaWQiOiIwIiwic2N5IjoiYXV0byIsIm5ldCI6InRjcCIsInR5cGUiOiJub25lIiwiaG9zdCI6InNoY24yLTAxLmlwbGMxODguY29tIiwicGF0aCI6Ii8iLCJ0bHMiOiIiLCJzbmkiOiIifQ==,44.242.96.255,美国俄勒冈波特兰 亚马逊云
-vmess://eyJ2IjoiMiIsInBzIjoi57+75aKZ5YWaZmFucWlhbmdkYW5nLmNvbV9DTl8xNCIsImFkZCI6InNoY24yLTAxLmlwbGMxODguY29tIiwicG9ydCI6IjEwMDEyIiwiaWQiOiI4OTdhMTlmMC04ZGYxLTRiYTEtYTRhOC0wNTMzMWE4MmMyYWIiLCJhaWQiOiIwIiwic2N5IjoiYXV0byIsIm5ldCI6InRjcCIsInR5cGUiOiJub25lIiwiaG9zdCI6InVzYS1idWZmYWxvLmx2dWZ0LmNvbSIsInBhdGgiOiIvd3MiLCJ0bHMiOiIiLCJzbmkiOiIifQ==,136.175.179.25,美国加利福尼亚洛杉矶
-vmess://eyJ2IjoiMiIsInBzIjoi57+75aKZ5YWaZmFucWlhbmdkYW5nLmNvbV9DTl8xNiIsImFkZCI6InNoY24yLTAxLmlwbGMxODguY29tIiwicG9ydCI6IjEwMDE0IiwiaWQiOiI4OTdhMTlmMC04ZGYxLTRiYTEtYTRhOC0wNTMzMWE4MmMyYWIiLCJhaWQiOiIwIiwic2N5IjoiYXV0byIsIm5ldCI6InRjcCIsInR5cGUiOiJub25lIiwiaG9zdCI6InY5LnNzcnN1Yi5jb20iLCJwYXRoIjoiL3NzcnN1YiIsInRscyI6IiIsInNuaSI6IiJ9,3.70.63.126,德国法兰克福 亚马逊云
-vmess://eyJ2IjoiMiIsInBzIjoi57+75aKZ5YWaZmFucWlhbmdkYW5nLmNvbV9DTl8yMyIsImFkZCI6InNoY24yLTAxLmlwbGMxODguY29tIiwicG9ydCI6IjEwMDExIiwiaWQiOiI4OTdhMTlmMC04ZGYxLTRiYTEtYTRhOC0wNTMzMWE4MmMyYWIiLCJhaWQiOiIxIiwic2N5IjoiYXV0byIsIm5ldCI6InRjcCIsInR5cGUiOiJub25lIiwiaG9zdCI6IiIsInBhdGgiOiIiLCJ0bHMiOiIiLCJzbmkiOiIifQ==,103.138.75.27,中国香港
-<p><font face="宋体">v2ray客户端电脑版最新版本可添加trojan及vless,114.43.135.233,中国台湾台北 中華電信
+ss://YWVzLTI1Ni1nY206MWY2YWNhM2NlYmQyMWE0Y2Q1YTgwNzE4ZWQxNmI3NGNAMTIwLjIzMi4yMTQuMzY6NTAwMg#%F0%9F%87%B8%F0%9F%87%ACSingapore,8.25.96.100,美国 Level3
+ss://YWVzLTI1Ni1nY206Y2RCSURWNDJEQ3duZklO@139.99.62.207:8119#github.com/freefq%20-%20%E6%96%B0%E5%8A%A0%E5%9D%A1OVH%201,139.99.62.207,新加坡 OVH
+ss://YWVzLTI1Ni1nY206UmV4bkJnVTdFVjVBRHhH@167.88.61.60:7002#github.com/freefq%20-%20%E7%91%9E%E5%85%B8%20%203,167.88.61.60,美国加利福尼亚圣克拉拉
+ss://YWVzLTI1Ni1nY206WTZSOXBBdHZ4eHptR0M@38.143.66.71:3389#github.com/freefq%20-%20%E7%BE%8E%E5%9B%BD%E5%8D%8E%E7%9B%9B%E9%A1%BFCogent%E9%80%9A%E4%BF%A1%E5%85%AC%E5%8F%B8%204,38.143.66.71,美国华盛顿西雅图 Cogent
+trojan://e6c36d58-6070-4b55-a437-146e6b53ec57@t1.ssrsub.com:8443#github.com/freefq%20-%20%E5%8A%A0%E6%8B%BF%E5%A4%A7%20%2012,142.47.89.64,加拿大安大略
+ss://YWVzLTI1Ni1nY206ZTRGQ1dyZ3BramkzUVk@172.99.190.87:9101#github.com/freefq%20-%20%E7%BE%8E%E5%9B%BD%20%2013,172.99.190.87,美国乔治亚亚特兰大
+ss://YWVzLTI1Ni1nY206UENubkg2U1FTbmZvUzI3@46.29.218.6:8091#github.com/freefq%20-%20%E6%8C%AA%E5%A8%81%20%2019,46.29.218.6,挪威
 ```
 
-注意：本程序虽可跨平台，但因博主能力有限，无法在更多系统上去尝试和改进，望谅解！
+注意：本程序虽可跨平台，但因博主能力有限，只在macos系统操作过，无法在更多系统上去尝试和改进，望谅解！
 
 -------
 

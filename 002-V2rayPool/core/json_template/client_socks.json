@@ -16,6 +16,14 @@
         "clients": null
       },
       "streamSettings": null
+    },
+    {
+      "listen": "127.0.0.1",
+      "protocol": "http",
+      "settings": {
+        "timeout": 360
+      },
+      "port": "1087"
     }
   ],
     "outbounds": 

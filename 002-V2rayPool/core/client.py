@@ -9,6 +9,7 @@ import urllib
 from core.conf import Config
 from core.group import Vmess, Vless, Socks, SS, Mtproto, Trojan, Group, Dyport
 from core.utils import ProtocolType
+import core.utils as util
 
 
 class ClientWriter:
@@ -251,25 +252,27 @@ class Creator(object):
                 a = os.popen("kill %d" % int(pid)).read()
             except Exception as e:
                 pass
+        util.sys_proxy_off()
 
-    def __child_thread(self, url: str):
+    def __child_thread(self, url: str, isSysOn: False):
         self.generateAndWrite(url)
         # 执行就可，不需要知道结果
-        cur_dir = os.path.dirname(os.path.abspath(__file__))
         if Config.get_v2ray_core_path() is None:
             raise Exception('请先调用#Config.set_v2ray_core_path 设置路径')
         v2ray_path = os.path.join(Config.get_v2ray_core_path(), 'v2ray')
-        config_path = os.path.join(cur_dir, 'config.json')
+        config_path = os.path.join(Config.get_v2ray_core_path(), 'config.json')
         os.popen("%s -config %s >/dev/null 2>&1" % (v2ray_path, config_path))
         print("%s -config %s >/dev/null 2>&1" % (v2ray_path, config_path))
+        if isSysOn:
+            util.sys_v2ray_on()
 
-    def v2ray_start(self, url: str):
+    def v2ray_start(self, url: str, isSysOn: False):
         self.__kill_threading()
-        self.__child_thread(url)
+        self.__child_thread(url, isSysOn)
 
-    def v2ray_start_with_log(self, url: str):
+    def v2ray_start_with_log(self, url: str, isSysOn: False):
         try:
-            self.v2ray_start(url)
+            self.v2ray_start(url, isSysOn)
         except Exception as e:
             print(e)
             print("启动异常：%s" % url)

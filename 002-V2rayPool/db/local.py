@@ -185,7 +185,7 @@ class DbEnable(object):
         """
         if def_url is not None:
             self.__default_url = def_url
-        if len(config_path) < len('config.json'):
+        if len(config_path) < len('(参考用)config.json'):
             return False
         if not os.path.isfile(config_path):
             return False

@@ -15,7 +15,7 @@ EXIT_NUM = 100
 if __name__ == '__main__':
     utils.kill_all_v2ray()
     Config.set_v2ray_core_path('/Users/Qincji/Desktop/develop/soft/intalled/v2ray-macos-64')  # v2ray内核存放路径
-    Config.set_v2ray_node_path('/Users/Qincji/Desktop/develop/py/project/PythonIsTools')  # 保存获取到节点的路径
+    Config.set_v2ray_node_path('/Users/Qincji/Desktop/develop/py/project/PythonIsTools/002-V2rayPool')  # 保存获取到节点的路径
     proxy_url = 'vmess://ew0KICAidiI6ICIyIiwNCiAgInBzIjogIkBTU1JTVUItVjUyLeS7mOi0ueaOqOiNkDpzdW8ueXQvc3Nyc3ViIiwNCiAgImFkZCI6ICIxMTIuMzMuMzIuMTM2IiwNCiAgInBvcnQiOiAiMTAwMDMiLA0KICAiaWQiOiAiNjVjYWM1NmQtNDE1NS00M2M4LWJhZTAtZjM2OGNiMjFmNzcxIiwNCiAgImFpZCI6ICIxIiwNCiAgInNjeSI6ICJhdXRvIiwNCiAgIm5ldCI6ICJ0Y3AiLA0KICAidHlwZSI6ICJub25lIiwNCiAgImhvc3QiOiAiMTEyLjMzLjMyLjEzNiIsDQogICJwYXRoIjogIiIsDQogICJ0bHMiOiAiIiwNCiAgInNuaSI6ICIiDQp9'
     dbm = DBManage()
     dbm.init()  # 必须初始化
@@ -23,8 +23,8 @@ if __name__ == '__main__':
         urls = dbm.load_urls_by_net(proxy_url=proxy_url)
         dbm.check_and_save(urls, append=False)
     # print(urls)
-    # urls = load_unchecked_urls_by_local()
-    # check_and_save(urls, append=False)
-    # urls = load_enable_urls_by_local()
-    # load_urls_and_save_auto()
+    # urls = dbm.load_unchecked_urls_by_local()
+    # dbm.check_and_save(urls, append=False)
+    # urls = dbm.load_enable_urls_by_local()
+    # dbm.load_urls_and_save_auto()
     utils.kill_all_v2ray()

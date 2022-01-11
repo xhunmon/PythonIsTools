@@ -42,6 +42,10 @@ class Net(object):
         else:
             return ''
 
+    def update_agent(self):
+        self.USER_AGENT = self._ua.random()  # 随机生成的agent
+        self._headers = {"user-agent": self.USER_AGENT, 'Connection': 'close'}
+
     def get_urls(self) -> []:
         """需子类实现"""
         pass
