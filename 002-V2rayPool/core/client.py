@@ -254,7 +254,7 @@ class Creator(object):
                 pass
         util.sys_proxy_off()
 
-    def __child_thread(self, url: str, isSysOn: False):
+    def __child_thread(self, url: str, isSysOn=False):
         self.generateAndWrite(url)
         # 执行就可，不需要知道结果
         if Config.get_v2ray_core_path() is None:
@@ -266,11 +266,11 @@ class Creator(object):
         if isSysOn:
             util.sys_v2ray_on()
 
-    def v2ray_start(self, url: str, isSysOn: False):
+    def v2ray_start(self, url: str, isSysOn=False):
         self.__kill_threading()
         self.__child_thread(url, isSysOn)
 
-    def v2ray_start_with_log(self, url: str, isSysOn: False):
+    def v2ray_start_with_log(self, url: str, isSysOn=False):
         try:
             self.v2ray_start(url, isSysOn)
         except Exception as e:

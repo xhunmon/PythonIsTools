@@ -29,11 +29,11 @@ class DBManage(object):
                 continue
             all_urls.append(temp)
 
-    def start_random_v2ray_by_local(self):
+    def start_random_v2ray_by_local(self, isSysOn=False):
         """从本地随机启动一个可用的proxy"""
         urls = self.load_enable_urls_by_local()
         for url in urls:
-            if client.Creator().v2ray_start_with_log(random.choice(urls)) is False:
+            if client.Creator().v2ray_start_with_log(random.choice(urls),isSysOn) is False:
                 time.sleep(1)
                 continue
             time.sleep(2)

@@ -28,17 +28,34 @@
  ],
  "outbounds": [
   {
-   "protocol": "shadowsocks",
+   "protocol": "vmess",
    "settings": {
-    "servers": [
+    "vnext": [
      {
-      "address": "139.99.62.207",
-      "method": "aes-256-gcm",
-      "ota": false,
-      "password": "cdBIDV42DCwnfIN",
-      "port": 8119
+      "address": "42.157.8.162",
+      "port": 50002,
+      "users": [
+       {
+        "id": "418048af-a293-4b99-9b0c-98ca3580dd24",
+        "alterId": 64,
+        "security": "aes-128-gcm"
+       }
+      ]
      }
     ]
+   },
+   "streamSettings": {
+    "security": "",
+    "tlsSettings": {},
+    "wsSettings": {},
+    "httpSettings": {},
+    "network": "tcp",
+    "kcpSettings": {},
+    "tcpSettings": {},
+    "quicSettings": {}
+   },
+   "mux": {
+    "enabled": true
    }
   },
   {
@@ -49,6 +66,13 @@
    "tag": "direct"
   }
  ],
+ "dns": {
+  "servers": [
+   "8.8.8.8",
+   "8.8.4.4",
+   "localhost"
+  ]
+ },
  "routing": {
   "domainStrategy": "IPIfNonMatch",
   "rules": [
