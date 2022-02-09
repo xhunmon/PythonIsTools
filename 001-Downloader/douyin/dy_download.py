@@ -64,13 +64,13 @@ class DouYin(Downloader):
 
     # 单条数据页面
     def parse_single(self):
-        session = requests_html.HTMLSession()
-        html = session.get(self.single)
-
-        result = re.findall(r'id="RENDER_DATA".+?json">(.+?)</script>', html.text)[0]
-        urls = parse.unquote_plus(result)
-        jsonObj = json.loads(urls)
-
+        url = re.findall('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+', self.single)[
+            0]
+        r = requests.get(url=url)
+        key = re.findall('video/(\d+)?', str(r.url))[0]
+        jx_url = f'https://www.iesdouyin.com/web/api/v2/aweme/iteminfo/?item_ids={key}'  # 官方接口
+        js = json.loads(requests.get(url=jx_url, headers=self.headers).text)
+        detail = js['item_list'][0]
         # 作者信息
         author_list = []
         # 无水印视频链接
@@ -80,26 +80,10 @@ class DouYin(Downloader):
         # 作者id
         nickname = []
         max_cursor = 0
-        k: str = ''
-        for key in jsonObj:
-            if key.startswith('C_'):
-                awemeObj = jsonObj[key]
-                if 'aweme' in awemeObj:
-                    try:
-                        detail = awemeObj['detail']
-                        break
-                    except:
-                        pass
-        # if ('C_12' in jsonObj):
-        #     detail = jsonObj['C_12']['aweme']['detail']
-        # elif ('C_14' in jsonObj):
-        #     detail = jsonObj['C_14']['aweme']['detail']
-        # else:
-        #     detail = jsonObj['C_0']['aweme']['detail']
         author_list.append(str(detail['desc']))
-        video_list.append(str("https:" + detail['video']['playAddr'][0]['src']))
-        aweme_id.append(str(detail['awemeId']))
-        nickname.append(str(detail['authorInfo']['nickname']))
+        video_list.append(str(detail['video']['play_addr']['url_list'][0]).replace('playwm', 'play'))
+        aweme_id.append(str(detail['aweme_id']))
+        nickname.append(str(detail['author']['nickname']))
         Downloader.print_ui('开始下载单个视频' + video_list[0])
         self.videos_download(1, author_list, video_list, aweme_id, nickname, max_cursor)
 
@@ -112,10 +96,11 @@ class DouYin(Downloader):
 
     # 判断个人主页api链接
     def judge_link(self):
-        user_url = self.user
+        user_url: str = self.user
 
         Downloader.print_ui('----为您下载多个视频----\r')
-        key = re.findall('/user/(.*?)\?', str(user_url))[0]
+
+        key = re.findall('/user/(.*?)$', str(user_url))[0]
         if not key:
             key = user_url[28:83]
         Downloader.print_ui('----' + '用户的sec_id=' + key + '----\r')
@@ -273,7 +258,7 @@ class DouYin(Downloader):
                 break
 
             try:
-                video = requests.get(video_list[i])  # 保存视频
+                video = requests.get(video_list[i], headers=self.headers)  # 保存视频
                 start = time.time()  # 下载开始时间
                 size = 0  # 初始化已下载大小
                 chunk_size = 100  # 每次下载的数据大小

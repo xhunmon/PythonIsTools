@@ -12,7 +12,7 @@ class Config:
     def __init__(self):
         self.config = configparser.ConfigParser()
         parent_dir = os.path.dirname(os.path.abspath(__file__))
-        self.config_path = os.path.join(parent_dir, 'config.json')
+        self.config_path = os.path.join(Config.__v2ray_core_path, 'config.json')
         self.json_path = os.path.join(parent_dir, 'json_template')
         # self.config.read(self.config_path)
 

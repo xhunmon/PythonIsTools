@@ -6,11 +6,13 @@
 @Author     :xhunmon
 @Mail       :xhunmon@gmail.com
 """
+import json
 
 from base.net_proxy import Net
 
 import re
 import time
+import chardet
 
 
 def re_vmess_ss_trojan(pattern, html) -> []:
@@ -39,17 +41,23 @@ def re_vmess_ss_trojan(pattern, html) -> []:
 
 
 class PYCheck(Net):
-    def get_curren_ip(self):
+    def get_curren_ip(self, url='https://ip.cn/api/index?ip=&type=0'):
         """获取内容"""
         try:
-            r = self.request_zh('https://2021.ip138.com')
-            if r.status_code != 200:
-                return None
-            r.encoding = r.apparent_encoding
-            results = re.findall(r'\[<a.+?>(.+?)</a>.+?：(.+?)\n</p>', r.text, re.DOTALL)
-            if not results:
-                return None
-            return results[0]
+            r = self.request_zh(url)
+            if r.status_code == 200:
+                charset = chardet.detect(r.content)
+                content = r.content.decode(charset['encoding'])
+                r.encoding = r.apparent_encoding
+                # {"rs":1,"code":0,"address":"德国  Hessen  ","ip":"51.38.122.98","isDomain":0}
+                results = json.loads(content)
+                if not results:
+                    return None
+                return [results['ip'], results['address']]
+            elif r.status_code == 301 or r.status_code == 302 or r.status_code == 303:
+                location = r.headers['Location']
+                time.sleep(1)
+                return self.get_curren_ip(location)
         except Exception as e:
             print(e)
             return None
@@ -63,6 +71,23 @@ class PNFreeV2ray(Net):
     def get_urls(self) -> []:
         try:
             r = self.request(r'https://view.freev2ray.org/')
+            if r.status_code != 200:
+                return None
+            r.encoding = r.apparent_encoding
+            return re_vmess_ss_trojan(r'"%s"', r.text)
+        except Exception as e:
+            print(e)
+            return None
+
+
+class PNTWGithubV2ray(Net):
+    """
+    # https://hub.xn--gzu630h.xn--kpry57d/freefq/free
+    """
+
+    def get_urls(self) -> []:
+        try:
+            r = self.request(r'https://hub.xn--gzu630h.xn--kpry57d/freefq/free')
             if r.status_code != 200:
                 return None
             r.encoding = r.apparent_encoding

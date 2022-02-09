@@ -6,7 +6,7 @@
 @Author     :xhunmon
 @Mail       :xhunmon@gmail.com
 """
-import csv
+import xlsxwriter
 import os.path
 
 import matplotlib.pyplot as plt
@@ -17,15 +17,26 @@ from mypytrends.request import TrendReq
 class GoogleTrend(object):
     def __init__(self):
         self.data = {}
+        self.max_column = 0
 
-    def search(self, keyword, path, hl='en-US', proxies=False, retries=2, timeframe='2019-10-01 2021-10-11'):
+    def search(self, keyword, path, hl='en-US', proxies=False, retries=2, timeframe='2019-10-01 2022-01-01'):
         if not os.path.exists(path):
             os.makedirs(path)
-        csv_file = os.path.join(path, "%s.csv" % keyword)
-        self.__save_line(csv_file, ['keyword', 'no', 'top keyword', 'top range', 'rising keyword', 'rising range'],
-                         mode='w')
+        csv_file = os.path.join(path, "%s.xlsx" % keyword)
+        workbook = xlsxwriter.Workbook(csv_file)
+        # 设置整个工作薄的格式
+        workbook.formats[0].set_align('vcenter')  # 单元格垂直居中
+        # workbook.formats[0].set_text_wrap()  # 自动换行
+
+        worksheet = workbook.add_worksheet('sheet1')
+        i_row, i_column = 0, 0
+        first_row = ['keyword', 'no', 'top keyword', 'top range', 'rising keyword', 'rising range']
+        self.max_column = len(first_row)
+        for i in range(self.max_column):
+            worksheet.write(i_row, i, first_row[i])
+        i_row += 1
         tr = self.__get_req(hl=hl, proxies=proxies, retries=retries)
-        self.__search_trends(path, keyword, timeframe, tr)
+        i_row = self.__search_trends(i_row, worksheet, path, keyword, timeframe, tr)
         first_data = self.__search_related_queries(keyword, timeframe, tr)
         tops = first_data[keyword]['top']
         risings = first_data[keyword]['rising']
@@ -40,25 +51,33 @@ class GoogleTrend(object):
             if i < rising_size:
                 rising_key = risings[i]['keyword']
                 rising_range = risings[i]['range']
-            self.__save_line(csv_file, [keyword, i, top_key, top_range, rising_key, rising_range])
-        self.__save_line(csv_file, ['', ''])  # 换行
+            max_datas = [keyword, i, top_key, top_range, rising_key, rising_range]
+            for j in range(len(max_datas)):
+                worksheet.write(i_row, j, max_datas[j])
+            i_row += 1
+            # self.__save_line(csv_file, [keyword, i, top_key, top_range, rising_key, rising_range])
+        # self.__save_line(csv_file, ['', ''])  # 换行
+        i_row += 1
         for top in tops:
             top_key = top['keyword']
             try:
-                self.__sub_search(top_key, path, csv_file, timeframe, tr)
-                self.__save_line(csv_file, ['', ''])  # 换行
+                i_row = self.__sub_search(top_key, i_row, worksheet, path, csv_file, timeframe, tr)
+                # self.__save_line(csv_file, ['', ''])  # 换行
+                i_row += 1
             except:
                 pass
         for rising in risings:
             rising_key = rising['keyword']
             try:
-                self.__sub_search(rising_key, path, csv_file, timeframe, tr)
-                self.__save_line(csv_file, ['', ''])  # 换行
+                i_row = self.__sub_search(rising_key, i_row, worksheet, path, csv_file, timeframe, tr)
+                # self.__save_line(csv_file, ['', ''])  # 换行
+                i_row += 1
             except:
                 pass
+        workbook.close()
 
-    def __sub_search(self, keyword, path, csv_file, timeframe, tr):
-        self.__search_trends(path, keyword, timeframe, tr)
+    def __sub_search(self, i_row, worksheet, keyword, path, csv_file, timeframe, tr):
+        i_row = self.__search_trends(i_row, worksheet, path, keyword, timeframe, tr)
         first_data = self.__search_related_queries(keyword, timeframe, tr)
         tops = first_data[keyword]['top']
         risings = first_data[keyword]['rising']
@@ -71,17 +90,23 @@ class GoogleTrend(object):
                 top_key = tops[i]['keyword']
                 top_range = tops[i]['range']
                 try:
-                    self.__search_trends(path, top_key, timeframe, tr)
+                    i_row = self.__search_trends(i_row, worksheet, path, top_key, timeframe, tr)
                 except:
                     pass
             if i < rising_size:
                 rising_key = risings[i]['keyword']
                 rising_range = risings[i]['range']
                 try:
-                    self.__search_trends(path, rising_key, timeframe, tr)
+                    i_row = self.__search_trends(i_row, worksheet, path, rising_key, timeframe, tr)
                 except:
                     pass
-            self.__save_line(csv_file, [keyword, i, top_key, top_range, rising_key, rising_range])
+            # self.__save_line(csv_file, [keyword, i, top_key, top_range, rising_key, rising_range])
+            max_datas = [keyword, i, top_key, top_range, rising_key, rising_range]
+            for j in range(len(max_datas)):
+                worksheet.write(i_row, j, max_datas[j])
+                i_row += 1
+
+        return i_row
 
     def __search_related_queries(self, keyword, timeframe, tr: TrendReq) -> {}:
         tr.build_payload([keyword, ], cat=0, timeframe=timeframe, geo='', gprop='')
@@ -101,7 +126,7 @@ class GoogleTrend(object):
             risings.append({"keyword": row["query"], "range": row["value"]})
         return {keyword: {"top": tops, "rising": risings}}
 
-    def __search_trends(self, path, keyword, timeframe, tr: TrendReq):
+    def __search_trends(self, i_row, worksheet, path, keyword, timeframe, tr: TrendReq):
         tr.build_payload([keyword, ], cat=0, timeframe=timeframe, geo='', gprop='')
         trends = tr.interest_over_time()
         x_data = []
@@ -134,7 +159,12 @@ class GoogleTrend(object):
         print(x_data)
         print('%s : %d - %d' % (keyword, len(y_data), len(x_data)))
         # self.__draw_graph(x_data, y_data, 'pci.jpg', keyword)
-        self.__draw_histogram(x_data, y_data, os.path.join(path, "%s.jpg" % keyword), keyword)
+        img_path = os.path.join(path, "%s.jpg" % keyword)
+        self.__draw_histogram(x_data, y_data, img_path, keyword)
+        worksheet.insert_image(i_row - 1, self.max_column, img_path,
+                               {'x_scale': 0.2, 'y_scale': 0.2, 'object_position': 1})
+        i_row += 1
+        return i_row
 
     def __draw_histogram(self, x: [], y: [], path, title, x_name='date', y_name='trends'):
         plt.figure(dpi=60)

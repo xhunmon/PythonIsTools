@@ -33,7 +33,7 @@ class DBManage(object):
         """从本地随机启动一个可用的proxy"""
         urls = self.load_enable_urls_by_local()
         for url in urls:
-            if client.Creator().v2ray_start_with_log(random.choice(urls),isSysOn) is False:
+            if client.Creator().v2ray_start_with_log(random.choice(urls), isSysOn) is False:
                 time.sleep(1)
                 continue
             time.sleep(2)
@@ -72,6 +72,8 @@ class DBManage(object):
     def load_urls_by_not_proxy(self, save_local=True):
         all_urls = []
         # 1. 先把不需要代理的先请求下来
+        self.__add_urls_de_dup(all_urls, PNTWGithubV2ray().get_urls())
+        print("获取https://hub.xn--gzu630h.xn--kpry57d/freefq/free后数目：%d" % len(all_urls))
         self.__add_urls_de_dup(all_urls, PNSsfree().get_urls())
         print("获取https://view.ssfree.ru/后数目：%d" % len(all_urls))
         self.__add_urls_de_dup(all_urls, PNFreevpnX().get_urls())
@@ -118,6 +120,8 @@ class DBManage(object):
         """
         all_urls = []
         # 1. 先把不需要代理的先请求下来
+        self.__add_urls_de_dup(all_urls, PNTWGithubV2ray().get_urls())
+        print("获取https://hub.xn--gzu630h.xn--kpry57d/freefq/free后数目：%d" % len(all_urls))
         self.__add_urls_de_dup(all_urls, PNSsfree().get_urls())
         print("获取https://view.ssfree.ru/后数目：%d" % len(all_urls))
         self.__add_urls_de_dup(all_urls, PNFreevpnX().get_urls())

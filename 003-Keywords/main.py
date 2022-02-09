@@ -7,22 +7,45 @@
 @Mail       :xhunmon@gmail.com
 """
 # from amazon import run_api
+import os
 import time
 
+import xlwt
+
 import run_api
-from V2rayPool.core import utils
-from V2rayPool.core.conf import Config
-from V2rayPool.db import db_main
+import v2ray_util as v2util
 from google import GoogleTrend
+from openpyxl import load_workbook
+
+
+def Write_Img():
+    import xlsxwriter
+    book = xlsxwriter.Workbook('test_source.xlsx')
+    sheet = book.get_worksheet_by_name('Sheet1')
+    # sheet = book.add_worksheet('demo')
+    # sheet.insert_image(0, 5, 'Necklace/Necklace.jpg', {'x_scale': 0.2, 'y_scale': 0.2, 'object_position': 1})
+    print(sheet)
+    book.close()
+
+
+def read_xlsl():
+    import pandas as pd
+    df = pd.read_excel('test_source.xlsx', sheet_name='Sheet1')
+    data = df.values
+    print(data)
+    print('\n')
+    df = pd.read_excel('test_souce1.xlsx', sheet_name='2021xuqiu')
+    data = df.values
+    print(data)
+
+
 
 if __name__ == "__main__":
-    #如果有系统全局代理，可不需要开启v2ray_core代理，GoogleTrend(proxies=False)
-    utils.kill_all_v2ray()
-    Config.set_v2ray_core_path('/Users/Qincji/Desktop/develop/soft/intalled/v2ray-macos-64')
-    if not db_main.start_random_v2ray_by_local():
-        raise Exception('启动代理失败')
+    # v2util.restart_v2ray()
     # 获取amazon中相关词，代理需要看：middlewares.py，
     # results = run_api.crawl_amazon(['plastic packaging', ])
-    #把通过google trends查出关键词相关词，以及其词的趋势图，如：
-    GoogleTrend().search('women ring', 'women-ring', proxies=True, timeframe='2019-10-01 2021-10-11')
-    utils.kill_all_v2ray()
+    # 把通过google trends查出关键词相关词，以及其词的趋势图，如：
+    # GoogleTrend().search('Necklace', 'Necklace', proxies=True, timeframe='2021-01-01 2022-01-01')
+    # v2util.kill_all_v2ray()
+    # Write_Img()
+    read_xlsl()
