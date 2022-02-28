@@ -5,7 +5,7 @@ block_cipher = None
 
 
 a = Analysis(['main.py','type_enum.py','ui.py','utils.py','downloader.py','douyin\\dy_download.py'],
-             pathex=['D:\\develop\\Python\\project\\pyofafish\\crawling'],
+             pathex=['.'],
              binaries=[],
              datas=[('res\\logo.ico', 'images'),('config.ini', '.')],
              hiddenimports=[],
