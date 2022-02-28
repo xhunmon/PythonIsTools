@@ -14,6 +14,7 @@ from ui import Ui
 # 主模块执行
 if __name__ == "__main__":
     path = os.path.dirname(os.path.realpath(sys.argv[0]))
+    # path = os.path.dirname('/Users/Qincji/Documents/zmt/')
     app = Ui()
     app.set_dir(path)
     # to do

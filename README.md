@@ -10,8 +10,11 @@
 
 - [003-Keywords：获取相关关键词以及其google趋势](./003-Keywords) ——已完成
 
-
 - [004-EmailNotify：监听虚拟币变化，使用邮箱通知](./004-EmailNotify) ——已完成
+
+- [005-PaidSource：这些脚本你肯定会有用到的](./005-PaidSource) ——已完成
+
+- [006-TikTok：App自动化](./006-TikTok) ——已完成（持续更新）
 
 ----------
 

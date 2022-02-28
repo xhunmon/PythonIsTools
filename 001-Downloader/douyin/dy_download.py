@@ -11,10 +11,8 @@ import json
 import os
 import re
 import time
-from urllib import parse
 
 import requests
-import requests_html
 
 from downloader import Downloader
 
@@ -132,6 +130,7 @@ class DouYin(Downloader):
                 Downloader.print_ui('[  用户  ]:' + str(self.nickname) + '\r')
                 max_cursor = html['max_cursor']
                 result = html['aweme_list']
+                self.count = len(result)
                 Downloader.print_ui('----抓获数据成功----\r')
 
                 # 处理第一页视频信息
@@ -150,7 +149,8 @@ class DouYin(Downloader):
             return
         user_url = self.user
         # 获取用户sec_uid
-        key = re.findall('/user/(.*?)\?', str(user_url))[0]
+        # key = re.findall('/user/(.*?)\?', str(user_url))[0]
+        key = re.findall('/user/(.*?)$', str(user_url))[0]
         if not key:
             key = user_url[28:83]
 
@@ -165,7 +165,8 @@ class DouYin(Downloader):
                 self.end = True
                 return
             index += 1
-            Downloader.print_ui('----正在对' + max_cursor + '页进行第 %d 次尝试----\r' % index)
+            # Downloader.print_ui('----正在对' + max_cursor + '页进行第 %d 次尝试----\r' % index)
+            Downloader.print_ui('----正在对{}页进行第 {} 次尝试----\r'.format(max_cursor, index))
             time.sleep(0.3)
             response = requests.get(url=api_naxt_post_url, headers=self.headers)
             html = json.loads(response.content.decode())
@@ -173,12 +174,13 @@ class DouYin(Downloader):
                 # 下一页值
                 max_cursor = html['max_cursor']
                 result = html['aweme_list']
-                Downloader.print_ui('----' + max_cursor + '页抓获数据成功----\r')
+                self.count = len(result)
+                Downloader.print_ui('----{}页抓获数据成功----\r'.format(max_cursor))
                 # 处理下一页视频信息
                 self.video_info(result, max_cursor)
             else:
-                self.end == True
-                Downloader.print_ui('----' + max_cursor + '页抓获数据失败----\r')
+                self.end = True
+                Downloader.print_ui('----{}页抓获数据失败----\r'.format(max_cursor))
                 # sys.exit()
 
     # 处理视频信息
@@ -224,40 +226,47 @@ class DouYin(Downloader):
             except:
                 pass
             Downloader.add_downloading_count()
-            try:
-                jx_url = f'https://www.iesdouyin.com/web/api/v2/aweme/iteminfo/?item_ids={aweme_id[i]}'  # 官方接口
-                js = json.loads(requests.get(url=jx_url, headers=self.headers).text)
-                music_url = str(js['item_list'][0]['music']['play_url']['url_list'][0])
-                music_title = str(js['item_list'][0]['music']['author'])
-                if self.musicarg == "yes":  # 保留音频
-                    music = requests.get(music_url)  # 保存音频
-                    start = time.time()  # 下载开始时间
-                    size = 0  # 初始化已下载大小
-                    chunk_size = 1024  # 每次下载的数据大小
-                    content_size = int(music.headers['content-length'])  # 下载文件总大小
-                    if music.status_code == 200:  # 判断是否响应成功
-                        Downloader.print_ui('[  音频  ]:' + author_list[i] + '[文件 大小]:{size:.2f} MB'.format(
-                            size=content_size / chunk_size / 1024))  # 开始下载，显示下载文件大小
-                        # m_url = pre_save + music_title + '-[' + author_list[i] + '].mp3'
-                        m_url = os.path.join(pre_save,
-                                             nickname[i] + "-" + music_title + '-[' + author_list[i] + '].mp3')
-                        Downloader.print_ui("路径：" + m_url)
-                        with open(m_url, 'wb') as file:  # 显示进度条
-                            for data in music.iter_content(chunk_size=chunk_size):
-                                file.write(data)
-                                size += len(data)
-                                Downloader.print_ui('\r' + music_title + '\n[下载进度]:%s%.2f%%' % (
-                                    '>' * int(size * 50 / content_size), float(size / content_size * 100)))
-                            end = time.time()  # 下载结束时间
-                            Downloader.print_ui('\n' + music_title + '\n[下载完成]:耗时: %.2f秒\n' % (end - start))  # 输出下载用时时间
-                            Downloader.add_success_count()
-            except Exception as error:
-                # Downloader.print_ui2(error)
-                Downloader.print_ui('该页音频没有' + str(self.count) + '个,已为您跳过\r')
-                Downloader.add_failed_count()
-                break
+            # try:
+            #     jx_url = f'https://www.iesdouyin.com/web/api/v2/aweme/iteminfo/?item_ids={aweme_id[i]}'  # 官方接口
+            #     js = json.loads(requests.get(url=jx_url, headers=self.headers).text)
+            #     music_url = str(js['item_list'][0]['music']['play_url']['url_list'][0])
+            #     music_title = str(js['item_list'][0]['music']['author'])
+            #     if self.musicarg == "yes":  # 保留音频
+            #         music = requests.get(music_url)  # 保存音频
+            #         start = time.time()  # 下载开始时间
+            #         size = 0  # 初始化已下载大小
+            #         chunk_size = 1024  # 每次下载的数据大小
+            #         content_size = int(music.headers['content-length'])  # 下载文件总大小
+            #         if music.status_code == 200:  # 判断是否响应成功
+            #             Downloader.print_ui('[  音频  ]:' + author_list[i] + '[文件 大小]:{size:.2f} MB'.format(
+            #                 size=content_size / chunk_size / 1024))  # 开始下载，显示下载文件大小
+            #             # m_url = pre_save + music_title + '-[' + author_list[i] + '].mp3'
+            #             m_url = os.path.join(pre_save,
+            #                                  nickname[i] + "-" + music_title + '-[' + author_list[i] + '].mp3')
+            #             Downloader.print_ui("路径：" + m_url)
+            #             with open(m_url, 'wb') as file:  # 显示进度条
+            #                 for data in music.iter_content(chunk_size=chunk_size):
+            #                     file.write(data)
+            #                     size += len(data)
+            #                     Downloader.print_ui('\r' + music_title + '\n[下载进度]:%s%.2f%%' % (
+            #                         '>' * int(size * 50 / content_size), float(size / content_size * 100)))
+            #                 end = time.time()  # 下载结束时间
+            #                 Downloader.print_ui('\n' + music_title + '\n[下载完成]:耗时: %.2f秒\n' % (end - start))  # 输出下载用时时间
+            #                 Downloader.add_success_count()
+            # except Exception as error:
+            #     # Downloader.print_ui2(error)
+            #     Downloader.print_ui('该页音频没有' + str(self.count) + '个\r')
+            #     # Downloader.add_failed_count()
+            #     # break
 
             try:
+                v_url = os.path.join(pre_save, nickname[i] + "-" + '[' + author_list[i] + '].mp4')
+                # 如果本地已经有了就跳过
+                if os.path.exists(v_url):
+                    Downloader.print_ui('{}-已存在！'.format(v_url))
+                    Downloader.add_success_count()
+                    continue
+
                 video = requests.get(video_list[i], headers=self.headers)  # 保存视频
                 start = time.time()  # 下载开始时间
                 size = 0  # 初始化已下载大小
@@ -267,7 +276,7 @@ class DouYin(Downloader):
                     Downloader.print_ui(
                         '[  视频  ]:' + nickname[i] + '-' + author_list[i] + '[文件 大小]:{size:.2f} MB'.format(
                             size=content_size / 1024 / 1024))  # 开始下载，显示下载文件大小
-                    v_url = os.path.join(pre_save, nickname[i] + "-" + '[' + author_list[i] + '].mp4')
+                    # v_url = os.path.join(pre_save, nickname[i] + "-" + '[' + author_list[i] + '].mp4')
                     # v_url = pre_save + '[' + author_list[i] + '].mp4'
                     Downloader.print_ui("路径：" + v_url)
                     with open(v_url, 'wb') as file:  # 显示进度条

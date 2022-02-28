@@ -40,11 +40,10 @@ class Downloader(object):
         Downloader.print_ui(
             """
                 使用说明：
-                    1、youtube下载需要先让电脑连接外网，地址如：https://www.youtube.com/watch?v=jKhP750VdXw
-                    2、快手下载用户批量视频如：https://www.kuaishou.com/profile/xxx
-                    3、快手下载单条视频如：https://www.kuaishou.com/short-video/xxx
-                    4、抖音下载用户批量视频如：https://www.douyin.com/user/xxx
-                    5、抖音下载单条视频如：https://www.douyin.com/video/xxx
+                    1、快手下载用户批量视频如：https://www.kuaishou.com/profile/xxx
+                    2、快手下载单条视频如：https://www.kuaishou.com/short-video/xxx
+                    3、抖音下载用户批量视频如：https://www.douyin.com/user/xxx
+                    4、抖音下载单条视频如：https://www.douyin.com/video/xxx
             """
         )
 

@@ -12,7 +12,6 @@ from tkinter.filedialog import (askdirectory)
 from douyin.dy_download import DouYin
 from downloader import Downloader
 from kuaishou.ks_download import KuaiShou
-from pytube import YouTube
 from type_enum import PrintType
 from utils import *
 
@@ -31,7 +30,8 @@ class Ui(Frame):
         self.createWidgets()
 
     def window_init(self):
-        self.master.title('欢迎使用-自媒体资源下载器' + Config.instance().get_version_name() + '，本程序仅用于学习交流！如有疑问请联系：xhunmon@gmail.com')
+        self.master.title(
+            '欢迎使用-自媒体资源下载器' + Config.instance().get_version_name() + '，本程序仅用于学习交流！如有疑问请联系：xhunmon@gmail.com')
         self.master.bg = bg_color
         width, height = self.master.maxsize()
         # self.master.geometry("{}x{}".format(width, height))
@@ -150,10 +150,7 @@ class Ui(Frame):
         url = self.urlEntry.get()
         path = self.dirEntry.get()
         domain = get_domain(url)
-        if "youtube" in domain:
-            # downloader: Downloader = YouTube(url).streams.first().download()
-            downloader: Downloader = YouTube(url)
-        elif "kwaicdn" in domain or "kuaishou" in domain:
+        if "kwaicdn" in domain or "kuaishou" in domain:
             downloader: KuaiShou = KuaiShou()
             # downloader.set_cookie()
         else:

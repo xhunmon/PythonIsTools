@@ -1,9 +1,9 @@
 # 资源下载器
-本项目主要通过网络上开源的项目聚合成了一个跨平台的下载工具，可批量下载抖音、快手和YouTube视音频资源。下载地址：
+本项目主要通过网络上开源的项目聚合成了一个跨平台的下载工具，可批量下载抖音、快手视音频资源。下载地址：
 
-MacOS：[Downloader1.0.1-mac](https://github.com/xhunmon/PythonIsTools/releases/download/v1.0.1/downloader1.0.1-mac)
+MacOS：[Downloader1.0.3-mac](https://github.com/xhunmon/PythonIsTools/releases/download/v1.0.3/Downloader1.0.3.app)
 
-Window：[downloader1.0.1-window.exe](https://github.com/xhunmon/PythonIsTools/releases/download/v1.0.1/downloader1.0.1-window.exe)
+Window：[downloader1.0.1-window.exe](https://github.com/xhunmon/PythonIsTools/releases/download/v1.0.1/downloader1.0.1-window.exe) （已停用，待更新）
 
 效果如图：
 
@@ -25,6 +25,8 @@ pyinstaller -F -i res/logo.ico main.py  -w
 #③：再次进行打包，参考installer-mac.sh
 pyinstaller -F -i res/logo.ico main.spec  -w
 ```
+打包脚本与配置已放在 `doc` 目录下，需要拷贝出根目录进行打包。
+
 注意：
 pyinstaller打包工具的版本与python版本、python所需第三方库以及操作系统会存在各种问题，所以需要看日志查找问题。例如：打包后运用，发现导入pyppeteer报错，通过降低版本后能正常使用：pip install pyppeteer==0.2.2
 
