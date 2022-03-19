@@ -7,9 +7,9 @@
 
 下载地址：
 
-MacOS：[QincjiCut1.0.0-mac](https://github.com/xhunmon/PythonIsTools/releases/download/v1.0.4/QincjiCut1.0.0.app.zip)  下载后解压后使用
+MacOS：[QincjiCut1.0.0-mac](https://github.com/xhunmon/PythonIsTools/releases/download/1.0.4/QincjiCut1.0.0.app.zip)  下载后解压后使用
 
-Window：QincjiCut1.0.0-mac （未打包）
+Window：QincjiCut1.0.0-win （未打包）
 
 效果如图：
 
