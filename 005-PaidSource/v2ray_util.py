@@ -18,13 +18,13 @@ def search_node():
     Config.set_v2ray_core_path('/Users/Qincji/Desktop/develop/soft/intalled/v2ray-macos-64')  # v2ray内核存放路径
     Config.set_v2ray_node_path(
         '/Users/Qincji/Desktop/develop/py/project/PythonIsTools/005-PaidSource/v2ray_pool')  # 保存获取到节点的路径
-    proxy_url = 'ss://YWVzLTI1Ni1nY206UENubkg2U1FTbmZvUzI3@145.239.1.137:8091#github.com/freefq%20-%20%E8%8B%B1%E5%9B%BD%20%207'
+    proxy_url = 'ss://YWVzLTI1Ni1nY206WTZSOXBBdHZ4eHptR0M@134.195.196.3:3306#github.com/freefq%20-%20%E5%8C%97%E7%BE%8E%E5%9C%B0%E5%8C%BA%20%201'
     dbm = DBManage()
     dbm.init()  # 必须初始化
-    # if dbm.check_url_single(proxy_url):
-    #     urls = dbm.load_urls_by_net(proxy_url=proxy_url)
-    #     dbm.check_and_save(urls, append=False)
-    dbm.load_urls_and_save_auto()
+    if dbm.check_url_single(proxy_url):
+        urls = dbm.load_urls_by_net(proxy_url=proxy_url)
+        dbm.check_and_save(urls, append=False)
+    # dbm.load_urls_and_save_auto()
     # urls = dbm.load_unchecked_urls_by_local()
     # dbm.check_and_save(urls, append=False)
     utils.kill_all_v2ray()

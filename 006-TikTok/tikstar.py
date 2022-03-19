@@ -23,7 +23,7 @@ def parse_tags(page):
 
 
 if __name__ == '__main__':
-    html = futil.read('source/tags.html')
+    html = futil.read('tags.html')
     result = parse_tags(html)
     print(result)
-    futil.write_json(result, 'source/handmade.json')
+    futil.write_json(result, 'shoes.json')

@@ -10,6 +10,8 @@ import random
 import time
 from datetime import datetime
 
+import file_util as futil
+
 import uiautomator2 as u2
 
 '''
@@ -17,7 +19,7 @@ https://github.com/openatx/uiautomator2
 运行pip3 install -U uiautomator2 安装uiautomator2
 运行python3 -m uiautomator2 init安装包含httprpc服务的apk到安卓手机
 uiautomator2操作：https://python.iitter.com/other/35522.html
-借助：weditor 来获取元素
+借助：weditor 来获取元素，双击找控件id
 (注意电脑要把代理关掉)
 '''
 
@@ -197,5 +199,6 @@ def print_t(content):
 if __name__ == "__main__":
     # start_vpn()
     # review_tiktok()
-    review_forYou()
+    # review_forYou()
     # comment('Look at my')
+    d(resourceId="com.zhiliaoapp.musically:id/afa").click()

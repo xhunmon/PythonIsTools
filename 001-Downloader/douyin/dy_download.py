@@ -30,7 +30,7 @@ class DouYin(Downloader):
         # 读取保存路径
         self.save = path
         # 读取下载视频个数
-        self.count = 35
+        self.count = 10
         # 读取下载是否下载音频
         self.musicarg = True
         # 读取用户主页地址
@@ -83,7 +83,7 @@ class DouYin(Downloader):
         aweme_id.append(str(detail['aweme_id']))
         nickname.append(str(detail['author']['nickname']))
         Downloader.print_ui('开始下载单个视频' + video_list[0])
-        self.videos_download(1, author_list, video_list, aweme_id, nickname, max_cursor)
+        self.videos_download(author_list, video_list, aweme_id, nickname, max_cursor)
 
     # 匹配粘贴的url地址
     def Find(self, string):
@@ -130,7 +130,6 @@ class DouYin(Downloader):
                 Downloader.print_ui('[  用户  ]:' + str(self.nickname) + '\r')
                 max_cursor = html['max_cursor']
                 result = html['aweme_list']
-                self.count = len(result)
                 Downloader.print_ui('----抓获数据成功----\r')
 
                 # 处理第一页视频信息
@@ -167,14 +166,13 @@ class DouYin(Downloader):
             index += 1
             # Downloader.print_ui('----正在对' + max_cursor + '页进行第 %d 次尝试----\r' % index)
             Downloader.print_ui('----正在对{}页进行第 {} 次尝试----\r'.format(max_cursor, index))
-            time.sleep(0.3)
+            time.sleep(3)
             response = requests.get(url=api_naxt_post_url, headers=self.headers)
             html = json.loads(response.content.decode())
             if self.end == False:
                 # 下一页值
                 max_cursor = html['max_cursor']
                 result = html['aweme_list']
-                self.count = len(result)
                 Downloader.print_ui('----{}页抓获数据成功----\r'.format(max_cursor))
                 # 处理下一页视频信息
                 self.video_info(result, max_cursor)
@@ -200,7 +198,7 @@ class DouYin(Downloader):
         # 封面大图
         # dynamic_cover = []
 
-        for i2 in range(self.count):
+        for i2 in range(len(result)):
             try:
                 author_list.append(str(result[i2]['desc']))
                 video_list.append(str(result[i2]['video']['play_addr']['url_list'][0]))
@@ -210,10 +208,11 @@ class DouYin(Downloader):
             except Exception as error:
                 # Downloader.print_ui2(error)
                 pass
-        self.videos_download(self.count, author_list, video_list, aweme_id, nickname, max_cursor)
+        self.videos_download(author_list, video_list, aweme_id, nickname, max_cursor)
         return self, author_list, video_list, aweme_id, nickname, max_cursor
 
-    def videos_download(self, count, author_list, video_list, aweme_id, nickname, max_cursor):
+    def videos_download(self, author_list, video_list, aweme_id, nickname, max_cursor):
+        count = len(author_list)
         Downloader.add_total_count(count)
         for i in range(count):
             if count == 1:
@@ -290,7 +289,7 @@ class DouYin(Downloader):
                         Downloader.add_success_count()
             except Exception as error:
                 # Downloader.print_ui2(error)
-                Downloader.print_ui('该页视频没有' + str(self.count) + '个,已为您跳过\r')
+                Downloader.print_ui('该页视频没有' + str(count) + '个,已为您跳过\r')
                 Downloader.add_failed_count()
                 break
         self.next_data(max_cursor)
