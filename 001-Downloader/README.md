@@ -1,9 +1,9 @@
 # 资源下载器
 本项目主要通过网络上开源的项目聚合成了一个跨平台的下载工具，可批量下载抖音、快手视音频资源。下载地址：
 
-MacOS：[Downloader1.0.3-mac](https://github.com/xhunmon/PythonIsTools/releases/download/v1.0.3/Downloader1.0.3.app.zip)  下载后解压后使用
+MacOS：[Downloader1.0.3.app](https://github.com/xhunmon/PythonIsTools/releases/download/v1.0.3/Downloader1.0.3.app.zip)  下载后解压后使用
 
-Window：[downloader1.0.1-window.exe](https://github.com/xhunmon/PythonIsTools/releases/download/v1.0.1/downloader1.0.1-window.exe) （已停用，待更新）
+Window：[Downloader1.0.3.exe](https://github.com/xhunmon/PythonIsTools/releases/download/v1.0.3/Downloader1.0.3.exe.zip) 下载后解压后使用
 
 效果如图：
 
