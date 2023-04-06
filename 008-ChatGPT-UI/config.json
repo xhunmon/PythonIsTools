@@ -1,0 +1,10 @@
+{
+  "key": "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",
+  "api_base": "",
+  "model": "gpt-3.5-turbo",
+  "stream": true,
+  "response": true,
+  "folder": "",
+  "repeat": true,
+  "proxy": "socks5://127.0.0.1:7890"
+}

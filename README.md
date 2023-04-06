@@ -14,9 +14,11 @@
 
 - [005-PaidSource：这些脚本你肯定会有用到的](./005-PaidSource) ——已完成
 
-- [006-TikTok：App自动化](./006-TikTok) ——已完成（持续更新）
+- [006-TikTok：App自动化](./006-TikTok) ——已完成
 
-- [007-CutVideoAudio：自媒体运营之视频剪辑](./007-CutVideoAudio) ——已完成（持续更新）
+- [007-CutVideoAudio：自媒体运营之视频剪辑](./007-CutVideoAudio) ——已完成
+
+- [008-ChatGPT-UI：带界面的GPT，可打包成win.exe和mac.app（ChatGPT UI in window & mac with open api (gpt-3.5/gpt-4) ）](./008-ChatGPT-UI) ——已完成（持续更新）
 
 
 ----------
