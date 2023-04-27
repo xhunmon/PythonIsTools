@@ -18,7 +18,8 @@
 
 - [007-CutVideoAudio：自媒体运营之视频剪辑](./007-CutVideoAudio) ——已完成
 
-- [008-ChatGPT-UI：带界面的GPT，可打包成win.exe和mac.app（ChatGPT UI in window & mac with open api (gpt-3.5/gpt-4) ）](./008-ChatGPT-UI) ——已完成（持续更新）
+- [008-ChatGPT-UI：About
+A very useful ChatGPT 3.5/5 & Create Images Tools with OpenAI API. 一个非常实用的聊天和图片生成工具，Mac 和 Win开箱即用。](https://github.com/xhunmon/iMedia) ——已完成（持续更新）
 
 
 ----------
