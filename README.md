@@ -16,11 +16,13 @@
 
 - [006-TikTok：App自动化](./006-TikTok) ——已完成
 
-- [007-CutVideoAudio：自媒体运营之视频剪辑](./007-CutVideoAudio) ——已完成
+- [007-CutVideoAudio：自媒体运营之视频剪辑，新增V2版本命令](./007-CutVideoAudio) ——已完成
 
-- [008-ChatGPT-UI：About
-A very useful ChatGPT 3.5/5 & Create Images Tools with OpenAI API. 一个非常实用的聊天和图片生成工具，Mac 和 Win开箱即用。](https://github.com/xhunmon/iMedia) ——已完成（持续更新）
+- [008-ChatGPT-UI：About A very useful ChatGPT 3.5/5 Tools with OpenAI API. 一个非常实用的聊天工具](https://github.com/xhunmon/iMedia) ——已完成
 
+- [009-多平台，多语言，支持文本、文件、srt字幕文件翻译](./009-Translate) ——已完成
+
+- [010-YouTube视频上传脚本](./010-YouTubeUpload) ——已完成
 
 ----------
 
